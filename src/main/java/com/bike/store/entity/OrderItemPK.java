@@ -1,49 +1,33 @@
-package entity3;
+package com.bike.store.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import lombok.*;
 
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class OrderItemPK implements Serializable {
     @Column(name = "order_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int orderId;
+    private Integer orderId;
     @Column(name = "item_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int itemId;
-
-    public int getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
-
-    public int getItemId() {
-        return itemId;
-    }
-
-    public void setItemId(int itemId) {
-        this.itemId = itemId;
-    }
+    private Integer itemId;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         OrderItemPK that = (OrderItemPK) o;
-
-        if (orderId != that.orderId) return false;
-        if (itemId != that.itemId) return false;
-
-        return true;
+        if (!Objects.equals(orderId, that.orderId)) return false;
+        return Objects.equals(itemId, that.itemId);
     }
 
     @Override

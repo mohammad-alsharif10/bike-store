@@ -1,4 +1,7 @@
 package com.bike.store.repository;
 
-public interface CategoryRepository extends org.springframework.data.jpa.repository.JpaRepository<com.bike.store.entity.Category, java.lang.Integer> {
+import com.bike.store.entity.Category;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CategoryRepository extends JpaRepository<Category, Integer> {
 }

@@ -1,16 +1,24 @@
-package entity3;
+package com.bike.store.entity;
 
-import jakarta.persistence.*;
 
+import lombok.*;
+
+import javax.persistence.*;
 import java.util.Collection;
+import java.util.Objects;
 
 @Entity
 @Table(name = "customers", schema = "sales", catalog = "master")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "customer_id")
-    private int customerId;
+    private Integer customerId;
     @Basic
     @Column(name = "first_name")
     private String firstName;
@@ -35,99 +43,24 @@ public class Customer {
     @Basic
     @Column(name = "zip_code")
     private String zipCode;
-    @OneToMany(mappedBy = "customersByCustomerId")
-    private Collection<Order> ordersByCustomerId;
 
-    public int getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getZipCode() {
-        return zipCode;
-    }
-
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
-    }
+    @OneToMany(mappedBy = "customer")
+    private Collection<Order> orders;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Customer customer = (Customer) o;
-
-        if (customerId != customer.customerId) return false;
-        if (firstName != null ? !firstName.equals(customer.firstName) : customer.firstName != null) return false;
-        if (lastName != null ? !lastName.equals(customer.lastName) : customer.lastName != null) return false;
-        if (phone != null ? !phone.equals(customer.phone) : customer.phone != null) return false;
-        if (email != null ? !email.equals(customer.email) : customer.email != null) return false;
-        if (street != null ? !street.equals(customer.street) : customer.street != null) return false;
-        if (city != null ? !city.equals(customer.city) : customer.city != null) return false;
-        if (state != null ? !state.equals(customer.state) : customer.state != null) return false;
-        if (zipCode != null ? !zipCode.equals(customer.zipCode) : customer.zipCode != null) return false;
-
-        return true;
+        if (!Objects.equals(customerId, customer.customerId)) return false;
+        if (!Objects.equals(firstName, customer.firstName)) return false;
+        if (!Objects.equals(lastName, customer.lastName)) return false;
+        if (!Objects.equals(phone, customer.phone)) return false;
+        if (!Objects.equals(email, customer.email)) return false;
+        if (!Objects.equals(street, customer.street)) return false;
+        if (!Objects.equals(city, customer.city)) return false;
+        if (!Objects.equals(state, customer.state)) return false;
+        return Objects.equals(zipCode, customer.zipCode);
     }
 
     @Override
@@ -144,11 +77,4 @@ public class Customer {
         return result;
     }
 
-    public Collection<Order> getOrdersByCustomerId() {
-        return ordersByCustomerId;
-    }
-
-    public void setOrdersByCustomerId(Collection<Order> ordersByCustomerId) {
-        this.ordersByCustomerId = ordersByCustomerId;
-    }
 }

@@ -1,24 +1,31 @@
-package entity3;
+package com.bike.store.entity;
 
-import jakarta.persistence.*;
+import lombok.*;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
 @Table(name = "order_items", schema = "sales", catalog = "master")
 @IdClass(OrderItemPK.class)
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "order_id")
-    private int orderId;
+    private Integer orderId;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "item_id")
-    private int itemId;
+    private Integer itemId;
     @Basic
     @Column(name = "product_id")
-    private int productId;
+    private Integer productId;
     @Basic
     @Column(name = "quantity")
     private int quantity;
@@ -28,76 +35,24 @@ public class OrderItem {
     @Basic
     @Column(name = "discount")
     private BigDecimal discount;
-    @ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "order_id", nullable = false)
-    private Order ordersByOrderId;
-    @ManyToOne
-    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
-    private Product productsByProductId;
-
-    public int getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
-
-    public int getItemId() {
-        return itemId;
-    }
-
-    public void setItemId(int itemId) {
-        this.itemId = itemId;
-    }
-
-    public int getProductId() {
-        return productId;
-    }
-
-    public void setProductId(int productId) {
-        this.productId = productId;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public BigDecimal getListPrice() {
-        return listPrice;
-    }
-
-    public void setListPrice(BigDecimal listPrice) {
-        this.listPrice = listPrice;
-    }
-
-    public BigDecimal getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(BigDecimal discount) {
-        this.discount = discount;
-    }
+//    @ManyToOne
+//    @JoinColumn(name = "order_id", referencedColumnName = "order_id", nullable = false)
+//    private Order order;
+//    @ManyToOne
+//    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
+//    private Product product;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         OrderItem orderItem = (OrderItem) o;
-
-        if (orderId != orderItem.orderId) return false;
-        if (itemId != orderItem.itemId) return false;
-        if (productId != orderItem.productId) return false;
+        if (!Objects.equals(orderId, orderItem.orderId)) return false;
+        if (!Objects.equals(itemId, orderItem.itemId)) return false;
+        if (!Objects.equals(productId, orderItem.productId)) return false;
         if (quantity != orderItem.quantity) return false;
-        if (listPrice != null ? !listPrice.equals(orderItem.listPrice) : orderItem.listPrice != null) return false;
-        if (discount != null ? !discount.equals(orderItem.discount) : orderItem.discount != null) return false;
-
-        return true;
+        if (!Objects.equals(listPrice, orderItem.listPrice)) return false;
+        return Objects.equals(discount, orderItem.discount);
     }
 
     @Override
@@ -109,21 +64,5 @@ public class OrderItem {
         result = 31 * result + (listPrice != null ? listPrice.hashCode() : 0);
         result = 31 * result + (discount != null ? discount.hashCode() : 0);
         return result;
-    }
-
-    public Order getOrdersByOrderId() {
-        return ordersByOrderId;
-    }
-
-    public void setOrdersByOrderId(Order ordersByOrderId) {
-        this.ordersByOrderId = ordersByOrderId;
-    }
-
-    public Product getProductsByProductId() {
-        return productsByProductId;
-    }
-
-    public void setProductsByProductId(Product productsByProductId) {
-        this.productsByProductId = productsByProductId;
     }
 }

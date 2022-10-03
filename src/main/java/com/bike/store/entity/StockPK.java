@@ -1,37 +1,29 @@
-package entity3;
+package com.bike.store.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 
+import lombok.*;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.Objects;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class StockPK implements Serializable {
     @Column(name = "store_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int storeId;
+    private Integer storeId;
     @Column(name = "product_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int productId;
-
-    public int getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(int storeId) {
-        this.storeId = storeId;
-    }
-
-    public int getProductId() {
-        return productId;
-    }
-
-    public void setProductId(int productId) {
-        this.productId = productId;
-    }
+    private Integer productId;
 
     @Override
     public boolean equals(Object o) {
@@ -40,10 +32,8 @@ public class StockPK implements Serializable {
 
         StockPK stockPK = (StockPK) o;
 
-        if (storeId != stockPK.storeId) return false;
-        if (productId != stockPK.productId) return false;
-
-        return true;
+        if (!Objects.equals(storeId, stockPK.storeId)) return false;
+        return Objects.equals(productId, stockPK.productId);
     }
 
     @Override

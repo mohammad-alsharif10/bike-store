@@ -1,4 +1,7 @@
 package com.bike.store.repository;
 
-public interface EmployeeRepository extends org.springframework.data.jpa.repository.JpaRepository<com.bike.store.entity.Employee, java.lang.Integer> {
+import com.bike.store.entity.Employee;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 }

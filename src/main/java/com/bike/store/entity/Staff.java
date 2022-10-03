@@ -1,16 +1,23 @@
-package entity3;
+package com.bike.store.entity;
 
-import jakarta.persistence.*;
+import lombok.*;
 
+import javax.persistence.*;
 import java.util.Collection;
+import java.util.Objects;
 
 @Entity
 @Table(name = "staffs", schema = "sales", catalog = "master")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Staff {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "staff_id")
-    private int staffId;
+    private Integer staffId;
     @Basic
     @Column(name = "first_name")
     private String firstName;
@@ -26,104 +33,31 @@ public class Staff {
     @Basic
     @Column(name = "active")
     private byte active;
-    @Basic
-    @Column(name = "store_id")
-    private int storeId;
-    @Basic
-    @Column(name = "manager_id")
-    private Integer managerId;
-    @OneToMany(mappedBy = "staffsByStaffId")
-    private Collection<Order> ordersByStaffId;
+
+    @OneToMany(mappedBy = "staff")
+    private Collection<Order> orders;
     @ManyToOne
     @JoinColumn(name = "store_id", referencedColumnName = "store_id", nullable = false)
-    private Store storesByStoreId;
+    private Store store;
     @ManyToOne
     @JoinColumn(name = "manager_id", referencedColumnName = "staff_id")
-    private Staff staffsByManagerId;
-    @OneToMany(mappedBy = "staffsByManagerId")
-    private Collection<Staff> staffsByStaffId;
+    private Staff manager;
 
-    public int getStaffId() {
-        return staffId;
-    }
+    @OneToMany(mappedBy = "manager")
+    private Collection<Staff> staffCollection;
 
-    public void setStaffId(int staffId) {
-        this.staffId = staffId;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public byte getActive() {
-        return active;
-    }
-
-    public void setActive(byte active) {
-        this.active = active;
-    }
-
-    public int getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(int storeId) {
-        this.storeId = storeId;
-    }
-
-    public Integer getManagerId() {
-        return managerId;
-    }
-
-    public void setManagerId(Integer managerId) {
-        this.managerId = managerId;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Staff staff = (Staff) o;
-
-        if (staffId != staff.staffId) return false;
+        if (!Objects.equals(staffId, staff.staffId)) return false;
         if (active != staff.active) return false;
-        if (storeId != staff.storeId) return false;
-        if (firstName != null ? !firstName.equals(staff.firstName) : staff.firstName != null) return false;
-        if (lastName != null ? !lastName.equals(staff.lastName) : staff.lastName != null) return false;
-        if (email != null ? !email.equals(staff.email) : staff.email != null) return false;
-        if (phone != null ? !phone.equals(staff.phone) : staff.phone != null) return false;
-        if (managerId != null ? !managerId.equals(staff.managerId) : staff.managerId != null) return false;
-
-        return true;
+        if (!Objects.equals(firstName, staff.firstName)) return false;
+        if (!Objects.equals(lastName, staff.lastName)) return false;
+        if (!Objects.equals(email, staff.email)) return false;
+        return Objects.equals(phone, staff.phone);
     }
 
     @Override
@@ -134,40 +68,6 @@ public class Staff {
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
         result = 31 * result + (int) active;
-        result = 31 * result + storeId;
-        result = 31 * result + (managerId != null ? managerId.hashCode() : 0);
         return result;
-    }
-
-    public Collection<Order> getOrdersByStaffId() {
-        return ordersByStaffId;
-    }
-
-    public void setOrdersByStaffId(Collection<Order> ordersByStaffId) {
-        this.ordersByStaffId = ordersByStaffId;
-    }
-
-    public Store getStoresByStoreId() {
-        return storesByStoreId;
-    }
-
-    public void setStoresByStoreId(Store storesByStoreId) {
-        this.storesByStoreId = storesByStoreId;
-    }
-
-    public Staff getStaffsByManagerId() {
-        return staffsByManagerId;
-    }
-
-    public void setStaffsByManagerId(Staff staffsByManagerId) {
-        this.staffsByManagerId = staffsByManagerId;
-    }
-
-    public Collection<Staff> getStaffsByStaffId() {
-        return staffsByStaffId;
-    }
-
-    public void setStaffsByStaffId(Collection<Staff> staffsByStaffId) {
-        this.staffsByStaffId = staffsByStaffId;
     }
 }

@@ -1,4 +1,7 @@
 package com.bike.store.repository;
 
-public interface OrderItemRepository extends org.springframework.data.jpa.repository.JpaRepository<com.bike.store.entity.OrderItem, java.lang.Integer> {
+import com.bike.store.entity.OrderItem;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface OrderItemRepository extends JpaRepository<OrderItem, Integer> {
 }

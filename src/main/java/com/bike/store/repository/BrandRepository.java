@@ -1,4 +1,7 @@
 package com.bike.store.repository;
 
-public interface BrandRepository extends org.springframework.data.jpa.repository.JpaRepository<com.bike.store.entity.Brand, int> {
+import com.bike.store.entity.Brand;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface BrandRepository extends JpaRepository<Brand, Integer> {
 }

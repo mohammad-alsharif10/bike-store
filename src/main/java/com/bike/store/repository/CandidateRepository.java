@@ -1,4 +1,7 @@
 package com.bike.store.repository;
 
-public interface CandidateRepository extends org.springframework.data.jpa.repository.JpaRepository<com.bike.store.entity.Candidate, java.lang.Integer> {
+import com.bike.store.entity.Candidate;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CandidateRepository extends JpaRepository<Candidate, Integer> {
 }
